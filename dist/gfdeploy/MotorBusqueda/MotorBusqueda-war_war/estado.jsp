@@ -10,24 +10,29 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Estado</title>
         <script src="js/jquery.min.js"></script>
         <script>
 	$(document).ready(function() {
-		$('#submit').click(function(event) {
+                var resultado = "";
+		interval = setInterval(function(){
+                        console.log("vuelta");
 			$.post('EstadoServlet', {
 				
 			}, function(responseText) {
-				$('#resultado').html(responseText);
+                            resultado = responseText; 
+                            if(resultado.length != 2){ 
+                                $('#resultado').html(responseText);
+                                clearInterval(interval); 
+                            }                           
 			});
-		});
+		},1000);                
 	});
     </script>
     </head>
     <body>
-        <h1>Hello World! ESTADO</h1>
-        <input type="button" id="submit" value="Añadir" /> 
-        <div id="resultado"></div>
-        <script>//setInterval(function(){console.log('<%= Estado.leer() %>');},1000);</script>        
+        <h1>Estado</h1>
+        <div id="resultado">procesando...</div>
+                
     </body>
 </html>

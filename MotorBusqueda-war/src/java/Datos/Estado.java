@@ -46,12 +46,13 @@ public class Estado {
             BufferedReader buffer = new BufferedReader(new InputStreamReader(entrada));
             String strLinea;
             while ((strLinea = buffer.readLine()) != null)   {
-                rta = rta + strLinea;
+                rta = strLinea;
             }
             entrada.close();
         }catch (Exception e){ 
             System.err.println("Ocurrio un error: " + e.getMessage());
         }        
+        if(rta.compareTo("")!=0) guardar("");
         return rta;
     }
 

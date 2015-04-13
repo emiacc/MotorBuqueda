@@ -33,7 +33,7 @@ public class Buscador {
         this.cadena = cadena;        
     }
     
-    public String buscar(){
+    public Map<Integer, Double> buscar(){
         ranking = new HashMap();
         Integer N = Datos.getInstance().getCantidadDocumentos();
         LinkedList<String> palabrasRecuperadas = new LinkedList();
@@ -72,7 +72,7 @@ public class Buscador {
             }
         }
         Map<Integer, Double> sortedMap = sortByComparator(ranking);
-        return sortedMap.toString();
+        return sortedMap;
     }
     
     

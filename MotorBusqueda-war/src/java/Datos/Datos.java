@@ -243,4 +243,26 @@ public class Datos {
             if (con != null) try {  con.commit(); con.close(); } catch (SQLException e) { }
         }
     }
+    
+    public String getUbicacion(int id){
+        Connection con = null;
+        Statement stat = null;
+        ResultSet rs = null;
+        try {
+            con = DriverManager.getConnection(ruta);
+            stat = con.createStatement();
+            rs = stat.executeQuery("select nombre, directorio from Documentos where id="+id+";");
+            if (rs.next()) {
+                return "<a href='"+rs.getString(2)+"'>"+rs.getString(1)+"</a>";
+            }
+            return "";
+        } catch (SQLException ex) {
+            System.out.println("Error " + ex.getMessage());
+            return "";
+        } finally {
+            if (rs != null) try { rs.close(); } catch (SQLException e) { }
+            if (stat != null) try { stat.close(); } catch (SQLException e) { }
+            if (con != null) try {  con.commit(); con.close(); } catch (SQLException e) { }
+        }        
+    }
 }

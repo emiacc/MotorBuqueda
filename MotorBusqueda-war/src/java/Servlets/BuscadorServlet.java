@@ -6,8 +6,12 @@
 package Servlets;
 
 import Clases.Buscador;
+import Datos.Datos;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Iterator;
+import java.util.Map;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,7 +40,19 @@ public class BuscadorServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             Buscador b = new Buscador(request.getParameter("cadena"));
-            out.print(b.buscar());
+            String resultado = "";
+            Map<Integer, Double> map = b.buscar();
+            Iterator it = map.entrySet().iterator();
+            while (it.hasNext()) {
+                Map.Entry e = (Map.Entry)it.next();
+                resultado = resultado + ("<div>"+Datos.getInstance().getUbicacion((int)e.getKey())+"</div>");
+            }
+            
+            
+            request.setAttribute("resultado", resultado);
+            RequestDispatcher rd = null;
+            rd=request.getRequestDispatcher("index.jsp");
+            rd.forward(request, response);
         }
     }
 
