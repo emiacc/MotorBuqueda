@@ -6,6 +6,7 @@
 package Servlets;
 
 import Clases.Indexador;
+import Datos.Estado;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -36,10 +37,12 @@ public class IndexadorServlet extends HttpServlet{
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    in.indexar(); 
+                    String resultado = in.indexar(); 
+                    Estado.guardar(resultado);
                 }
             }).start();
-            out.print("procesando");
+            
+            response.sendRedirect("estado.jsp");
         }
     }
 

@@ -21,7 +21,7 @@ import java.util.Map;
 public class Datos {
 
     public static Datos instance = new Datos();
-    private String ruta = "jdbc:sqlite:C:\\Users\\Emi\\Dropbox\\Privado\\Facultad\\DLC\\Trabajo\\MotorBusqueda\\DBVocabulario2.s3db";
+    private String ruta = "jdbc:sqlite:C:\\Users\\Emi\\Documents\\NetBeansProjects\\MotorBusqueda\\DBVocabulario2.s3db";
     private Datos() {
         try {
             Class.forName("org.sqlite.JDBC");
@@ -101,7 +101,7 @@ public class Datos {
         }
     }
 
-    public boolean insertarTabla(HashMap map, String archivo) {
+    public boolean insertarTabla(HashMap map, String archivo, String path) {
         Connection con = null;
         Statement stat = null;
         ResultSet rs = null;
@@ -112,7 +112,7 @@ public class Datos {
             stat = con.createStatement();
 
             //Guardar Documento
-            stat.executeUpdate("insert into Documentos (nombre) values ('" + archivo + "');");
+            stat.executeUpdate("insert into Documentos (nombre, directorio) values ('" + archivo + "','" + path + "');");
             rs = stat.executeQuery("SELECT last_insert_rowid();");
             idArchivo = rs.getInt(1);
             //Guardar Palabras

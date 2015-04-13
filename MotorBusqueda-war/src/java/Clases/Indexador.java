@@ -66,7 +66,7 @@ public class Indexador {
                         }
                         linea = info.readLine();
                     }
-                    if(Datos.getInstance().insertarTabla(map,dir.getName())) return "Procesado Correctamente";
+                    if(Datos.getInstance().insertarTabla(map,dir.getName(),dir.getAbsolutePath())) return "Procesado Correctamente";
                 }
             }
         } catch (IOException e) {
