@@ -253,7 +253,9 @@ public class Datos {
             stat = con.createStatement();
             rs = stat.executeQuery("select nombre, directorio from Documentos where id="+id+";");
             if (rs.next()) {
-                return "<a href='"+rs.getString(2)+"'>"+rs.getString(1)+"</a>";
+                return "<tr><td>"+rs.getString(1)+"<br><a href='"+rs.getString(2)+"'>"+rs.getString(2)+"</a></tr></td>";                   
+                //return "<a href='"+rs.getString(2)+"'>"+rs.getString(1)+"</a>";
+                //return "<form action='leertxt' method='POST'><input type='hidden' name='url' value='"+rs.getString(2)+"'><input type='submit' value='"+rs.getString(1)+"'></form>";
             }
             return "";
         } catch (SQLException ex) {

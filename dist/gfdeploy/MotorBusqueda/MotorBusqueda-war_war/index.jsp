@@ -32,7 +32,12 @@
                     <input type="submit" value="Buscar" class="btn btn-default col-xs-4">
                 </form>
             </div>
-             ${resultado}
-        </div>
+            <br><br>  
+            <div class="row">
+                <table class="table table-hover" id="resultados">
+                 ${resultado}
+                </table>
+            </div>
+        </div>        
     </body>
 </html>

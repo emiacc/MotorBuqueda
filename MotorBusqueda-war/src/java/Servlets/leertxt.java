@@ -5,25 +5,23 @@
  */
 package Servlets;
 
-import Clases.Buscador;
-import Datos.Datos;
+import static Datos.Estado.guardar;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.Iterator;
-import java.util.Map;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Emiliano
+ * @author Emi
  */
-@WebServlet(name = "Buscador", urlPatterns = {"/Buscador"})
-public class BuscadorServlet extends HttpServlet {
+public class leertxt extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,20 +37,29 @@ public class BuscadorServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            Buscador b = new Buscador(request.getParameter("cadena"));
-            String resultado = "";
-            Map<Integer, Double> map = b.buscar();
-            Iterator it = map.entrySet().iterator();
-            while (it.hasNext()) {
-                Map.Entry e = (Map.Entry)it.next();
-                resultado = resultado + (Datos.getInstance().getUbicacion((int)e.getKey()));
-            }
-            
-            
-            request.setAttribute("resultado", resultado);
-            RequestDispatcher rd = null;
-            rd=request.getRequestDispatcher("index.jsp");
-            rd.forward(request, response);
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>TXT</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h3>Servlet leertxt at " + request.getParameter("url") + "</h3>");
+            String rta = "";
+            try{
+                FileInputStream fstream = new FileInputStream(request.getParameter("url"));
+                DataInputStream entrada = new DataInputStream(fstream);
+                BufferedReader buffer = new BufferedReader(new InputStreamReader(entrada));
+                String strLinea;
+                while ((strLinea = buffer.readLine()) != null)   {
+                    rta += strLinea;
+                }
+                entrada.close();
+            }catch (Exception e){ 
+                System.err.println("Ocurrio un error: " + e.getMessage());
+            }        
+            out.println("<div>"+rta+"</div>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
