@@ -43,13 +43,16 @@ public class BuscadorServlet extends HttpServlet {
             String resultado = "";
             Map<Integer, Double> map = b.buscar();
             Iterator it = map.entrySet().iterator();
+            int i = 0;
             while (it.hasNext()) {
                 Map.Entry e = (Map.Entry)it.next();
                 resultado = resultado + (Datos.getInstance().getUbicacion((int)e.getKey()));
+                i++;
             }
             
             
             request.setAttribute("resultado", resultado);
+            request.setAttribute("cantidad", i);
             RequestDispatcher rd = null;
             rd=request.getRequestDispatcher("index.jsp");
             rd.forward(request, response);

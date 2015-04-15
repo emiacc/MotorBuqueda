@@ -46,7 +46,7 @@ public class IndexadorDirectorioServlet extends HttpServlet {
                     for (String a : archivos) {
                         Indexador in;
                         in = new Indexador(url+a);
-                        in.indexar();                        
+                        System.out.println(in.indexar());                        
                     }
                      
                 }

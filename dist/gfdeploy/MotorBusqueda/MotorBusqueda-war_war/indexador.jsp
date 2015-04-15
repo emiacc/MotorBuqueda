@@ -34,7 +34,7 @@
                 </form>
             </div>
             <br><br><br><br>
-            <form method="POST" action="IndexadorDirectorio">
+            <form method="POST" action="IndexadorDirectorio" style="display: none;">
                 <input type="text" name="cadena">  
                 <input type="submit" value="Indexat Todo">
             </form>
